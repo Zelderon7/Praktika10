@@ -38,7 +38,7 @@ public class Main {
                 curPas = getPas();
 
                 if(Users.get(curName).checkPassword(curPas)){
-                    System.out.println("Logged in successfully " + Users.get(curName).Name);
+                    System.out.println("Logged in successfully " + Users.get(curName).getName());
                 }else {
                     System.out.println("Wrong credentials!");
                 }
