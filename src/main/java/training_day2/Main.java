@@ -1,8 +1,5 @@
-package org.example;
+package training_day2;
 
-import javax.jws.soap.SOAPBinding;
-import java.nio.charset.CharsetDecoder;
-import java.text.DecimalFormat;
 import java.util.*;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,

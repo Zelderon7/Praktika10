@@ -1,4 +1,4 @@
-package org.example;
+package training_day2;
 
 import java.util.Objects;
 
