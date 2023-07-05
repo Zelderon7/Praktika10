@@ -15,10 +15,13 @@ public class Main {
         Scanner in = new Scanner(System.in);
         String curName;
         String curPas;
+
         while (true){
             System.out.println("Choose an option: ");
             System.out.println("1. Sign in");
             System.out.println("2. Log in");
+
+
 
             if(getInt(1, 3) == 1){
 
