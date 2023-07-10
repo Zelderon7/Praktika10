@@ -6,21 +6,22 @@ import java.util.List;
 
 public class Teacher extends Person{
     List<Subjects> subjects = new ArrayList<>();
-    List<Integer> grades = new ArrayList<>();
-    private String school;
+    private List<Grade> grades = new ArrayList<>();
+    private School school;
     private float salary;
 
-    public Teacher(String name, List<Subjects> subjects, float salary, String school){
+    public Teacher(String name, List<Subjects> subjects, float salary, School school){
         super(name);
+        school.registerTeacher(this);
         this.subjects.addAll(subjects);
         this.salary = salary;
         this.school = school;
     }
 
-    public String getSchool(){
+    public School getSchool(){
         return this.school;
     }
-    public void setSchool(String school) {
+    public void setSchool(School school) {
         this.school = school;
     }
     public List<Subjects> getSubjects(){
@@ -48,19 +49,19 @@ public class Teacher extends Person{
         this.salary = salary;
     }
 
-    public void signNewGrade(int grade){
+    public void signNewGrade(Grade grade){
         this.grades.add(grade);
     }
 
     public float getAverageGrade(){
         float ans = 0;
-        for (Integer g:
+        for (Grade g:
              grades) {
-            ans += (float)g;
+            ans += (float)g.value;
         }
         if(ans == 0)
             return -1;
         else
-            return  ans/grades.size();
+            return  ans / grades.size();
     }
 }

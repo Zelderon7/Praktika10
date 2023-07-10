@@ -10,13 +10,13 @@ public class Student extends Person{
 
     private int clas;
     private int numberInClass;
-    private String school;
-    public HashMap<Subjects, Integer> gradesForSubject = new HashMap<>();
+    private School school;
+    private HashMap<Subjects, Grade> gradesForSubject = new HashMap<>();
     private List<Subjects> subjects = new ArrayList<>();
 
-    public Student(String name, List<Subjects> subjects, int clas, int numberInClass, String school){
+    public Student(String name, List<Subjects> subjects, int clas, int numberInClass, School school){
         super(name);
-        registerStudent(this);
+        school.registerStudent(this);
         this.subjects.addAll(subjects);
         this.clas = clas;
         this.numberInClass = numberInClass;
@@ -37,17 +37,17 @@ public class Student extends Person{
         this.numberInClass = number;
     }
 
-    public String getSchool(){
+    public School getSchool(){
         return this.school;
     }
 
-    public void setSchool(String school){
+    public void setSchool(School school){
         this.school = school;
     }
 
-    public boolean addNewGrade(Teacher teacher, Subjects subject, int grade){
-        if(teacher.getSubjects().contains(subject) && this.subjects.contains(subject) &&
-            teacher.getSchool().equals(this.school) && grade >= 2 && grade <= 6){
+    public boolean addNewGrade(Subjects subject, Grade grade){
+        if(grade.teacher.getSubjects().contains(subject) && this.subjects.contains(subject) &&
+            grade.teacher.getSchool() == this.school && grade.value >= 2 && grade.value <= 6){
             this.gradesForSubject.put(subject, grade);
             return true;
         }
@@ -55,15 +55,22 @@ public class Student extends Person{
             return false;
     }
 
+    public void updateGrade(Subjects subject, int value){
+
+        Grade temp = this.gradesForSubject.get(subject);
+        temp.value = (temp.value + value)/2;
+        gradesForSubject.replace(subject, temp);
+    }
+
     public int getGrade(Subjects subject){
-        return this.gradesForSubject.get(subject);
+        return this.gradesForSubject.get(subject).value;
     }
 
     public float getAverageGrade(){
         float ans = 0;
         for (Subjects s:
             subjects) {
-            ans += gradesForSubject.get(s).floatValue();
+            ans += gradesForSubject.get(s).value;
         }
         return ans / subjects.size();
     }
@@ -72,11 +79,17 @@ public class Student extends Person{
         int worst = -10;
         Subjects subject = null;
         for (int i = 0; i < subjects.size(); i++){
-            if(gradesForSubject.get(subjects.get(i)) > worst){
-                worst = gradesForSubject.get(subjects.get(i));
+            if(gradesForSubject.get(subjects.get(i)).value > worst){
+                worst = gradesForSubject.get(subjects.get(i)).value;
                 subject = subjects.get(i);
             }
         }
         return subject.name();
     }
+
+    public List<Subjects> getSubjects(){
+        return this.subjects;
+    }
+
+
 }
