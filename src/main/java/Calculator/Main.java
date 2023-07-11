@@ -1,4 +1,4 @@
-package training_day7;
+package Calculator;
 
 import java.util.ArrayList;
 import java.util.Arrays;

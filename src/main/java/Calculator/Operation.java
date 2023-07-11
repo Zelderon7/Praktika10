@@ -1,4 +1,4 @@
-package training_day7;
+package Calculator;
 
 public class Operation {
     public char name;
@@ -8,3 +8,4 @@ public class Operation {
         this.priority = priority;
     }
 }
+
