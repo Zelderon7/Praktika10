@@ -7,9 +7,9 @@ public class TestHW {
         RaceMotorcycle motor = new RaceMotorcycle(3100, 210);
 
         for (int i = 0; i < 1000; i += 10){
-            car.Drive(i);
-            spCar.Drive(i);
-            motor.Drive(i);
+            car.driveVehicle(i);
+            spCar.driveVehicle(i);
+            motor.driveVehicle(i);
         }
     }
 }

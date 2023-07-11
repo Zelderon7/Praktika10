@@ -1,27 +1,25 @@
 package training_day4.HW;
 
-import java.lang.reflect.Field;
-
 public abstract class Vehicle {
+
     public final double DEFAULT_FUEL_CONSUMPTION;
     private double fuelConsumption;
     private int horsePower;
     private double fuel;
 
-    public Vehicle(double fuel, int horsePower, double DEFAULT_FUEL_CONSUMPTION){
+    public Vehicle(double fuel, int horsePower, double DEFAULT_FUEL_CONSUMPTION) {
         this.DEFAULT_FUEL_CONSUMPTION = DEFAULT_FUEL_CONSUMPTION;
         this.fuel = fuel;
         this.horsePower = horsePower;
         this.fuelConsumption = this.DEFAULT_FUEL_CONSUMPTION;
     }
 
-    public Vehicle(double fuel, int horsePower){
+    public Vehicle(double fuel, int horsePower) {
         this.DEFAULT_FUEL_CONSUMPTION = 1.25;
         this.fuel = fuel;
         this.horsePower = horsePower;
         this.fuelConsumption = this.DEFAULT_FUEL_CONSUMPTION;
     }
-
 
     public double getFuelConsumption() {
         return fuelConsumption;
@@ -59,15 +57,13 @@ public abstract class Vehicle {
         }
     }
 
-
-    public void Drive(double kilometers){
-        if(this.horsePower < 1)
+    public void driveVehicle(double kilometers) {
+        if (this.horsePower < 1)
             System.out.println("0hp how poor are u? \uD83D\uDE01 \uD83D\uDE01");
-        else if(this.fuel < kilometers*this.fuelConsumption){
-            System.out.println("U only have " + fuel + " fuel, but u need " + kilometers*this.fuelConsumption + " for the trip");
-        }
-        else{
-            fuel -= kilometers*this.fuelConsumption;
+        else if (this.fuel < kilometers * this.fuelConsumption) {
+            System.out.println("U only have " + fuel + " fuel, but u need " + kilometers * this.fuelConsumption + " for the trip");
+        } else {
+            fuel -= kilometers * this.fuelConsumption;
             System.out.println("Driving...");
             System.out.println("You arrived at your destination with " + fuel + " fuel left\uD83D\uDE01 \uD83D\uDE01");
         }
