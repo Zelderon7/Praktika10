@@ -1,12 +1,12 @@
 package training_day3.HW;
 
 public class Zad2HW {
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
     }
 
-    private static boolean isItEven(int a){
-        return a%2 == 0;
+    private static boolean isEven(int a) {
+        return a % 2 == 0;
     }
 
 }
