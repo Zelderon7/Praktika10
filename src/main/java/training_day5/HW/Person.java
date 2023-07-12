@@ -12,10 +12,8 @@ public abstract class Person {
     private String ID;
 
     public Person(String name) {
-
         this.name = name;
         this.gender = Gender.Unknown;
-
         this.ID = getRandomID();
     }
     public Person(String name, Gender gender) {
@@ -24,7 +22,11 @@ public abstract class Person {
         this.gender = gender;
     }
 
+    /**
+     * @return A String of formatted like so: ####.####.####.#### where each number is from 1000 to 9999
+     */
     private static String getRandomID(){
+
         Random random = new Random();
         return ((Math.abs(random.nextInt() % 9) + 1) * 1000 + Math.abs(random.nextInt() % 1000)) + "." +
                 ((Math.abs(random.nextInt() % 9) + 1) * 1000 + Math.abs(random.nextInt() % 1000)) + "." +

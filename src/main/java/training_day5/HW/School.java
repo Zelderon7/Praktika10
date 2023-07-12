@@ -9,15 +9,15 @@ public class School {
     private List<Teacher> teachers = new ArrayList<>();
     private List<Student> students = new ArrayList<>();
 
-    public School(String name){
+    public School(String name) {
         this.name = name;
     }
 
-    public void setName(String name){
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getName(){
+    public String getName() {
         return this.name;
     }
 
@@ -29,42 +29,23 @@ public class School {
         this.teachers.add(a);
     }
 
-    public void printTeachersAndStudents(){
+    public void printTeachersAndStudents() {
         System.out.println("*****Teachers*****");
-        for (Teacher t:
-                teachers) {
-            System.out.println("\n" + t.getName() + ": ");
-            System.out.println("Gender = " + t.getGender().name());
-            System.out.println("ID = " + t.getID());
-            System.out.println("Salary = " + t.getSalary());
-            System.out.print("Subjects: ");
-            for (Subjects s:
-                 t.getSubjects()) {
-                System.out.print(s.name() + ", ");
-            }
-            System.out.println();
+        for (Teacher t : teachers) {
+            System.out.println(t);
         }
 
         System.out.println("\n*****Students*****");
-        for (Student s:
-                students) {
-            System.out.println("\n" + s.getName() + ": ");
-            System.out.println("Gender = " + s.getGender().name());
-            System.out.println("ID = " + s.getID());
-            System.out.println("Class = " + s.getClas());
-            for (Subjects ss:
-                    s.getSubjects()) {
-                System.out.print(ss.name() + ", ");
-            }
-            System.out.println();
+        for (Student s : students) {
+            System.out.println(s);
         }
     }
 
-    public Student getTopperIn(Subjects subject){
+    public Student getTopperIn(Subjects subject) {
         int bestGrade = -10;
         Student bestStudent = null;
-        for (int i = 0; i < students.size(); i++){
-            if(students.get(i).getGrade(subject) > bestGrade){
+        for (int i = 0; i < students.size(); i++) {
+            if (students.get(i).getGrade(subject) > bestGrade) {
                 bestGrade = students.get(i).getGrade(subject);
                 bestStudent = students.get(i);
             }
@@ -72,11 +53,11 @@ public class School {
         return bestStudent;
     }
 
-    public Student getLowestGraderIn(Subjects subject){
+    public Student getLowestGraderIn(Subjects subject) {
         int lowestGrade = 10;
         Student lowestGrader = null;
-        for (int i = 0; i < students.size(); i++){
-            if(students.get(i).getGrade(subject) < lowestGrade){
+        for (int i = 0; i < students.size(); i++) {
+            if (students.get(i).getGrade(subject) < lowestGrade) {
                 lowestGrade = students.get(i).getGrade(subject);
                 lowestGrader = students.get(i);
             }
@@ -84,37 +65,38 @@ public class School {
         return lowestGrader;
     }
 
-    public float getAverageSalary(){
+    public float getAverageSalary() {
         float ans = 0;
-        for (Teacher t:
+        for (Teacher t :
                 teachers) {
             ans += t.getSalary();
         }
         return ans / teachers.size();
     }
 
-    public float getAverageGradeForClass(int clas){
-        float ans = 0;
+    public float getAverageGradeForClass(int clas) {
+        float result = 0;
         int count = 0;
-        for (Student s:
-                students) {
-            if(s.getClas() == clas){
-                ans += s.getAverageGrade();
+        for (Student s : students) {
+            if (s.getClas() == clas) {
+                result += s.getAverageGrade();
                 count++;
             }
         }
-        if(count == 0)
-            return -1;
-        else
-            return (float) ans / count;
+        return checkCount(result, count);
     }
 
-    public Teacher highestGradingTeacher(){
+    private static float checkCount(float result, int count) {
+        if (count == 0)
+            return -1;
+        return result / count;
+    }
+
+    public Teacher gethighestGradingTeacher() {
         float best = -1;
         Teacher ans = null;
-        for (Teacher t:
-                teachers) {
-            if(t.getAverageGrade() > best){
+        for (Teacher t : teachers) {
+            if (t.getAverageGrade() > best) {
                 best = t.getAverageGrade();
                 ans = t;
             }

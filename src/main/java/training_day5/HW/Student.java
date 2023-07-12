@@ -11,7 +11,9 @@ public class Student extends Person{
     private int clas;
     private int numberInClass;
     private School school;
+    
     private HashMap<Subjects, Grade> gradesForSubject = new HashMap<>();
+    
     private List<Subjects> subjects = new ArrayList<>();
 
     public Student(String name, List<Subjects> subjects, int clas, int numberInClass, School school){
@@ -30,9 +32,11 @@ public class Student extends Person{
     public void setClas(int clas) {
         this.clas = clas;
     }
+    
     public int getNumberInClass(){
         return this.numberInClass;
     }
+    
     public void setNumberInClass(int number){
         this.numberInClass = number;
     }
@@ -57,7 +61,7 @@ public class Student extends Person{
 
     public void updateGrade(Subjects subject, int value){
 
-        Grade temp = this.gradesForSubject.get(subject);
+        Grade temp = gradesForSubject.get(subject);
         temp.value = (temp.value + value)/2;
         gradesForSubject.replace(subject, temp);
     }
@@ -91,5 +95,18 @@ public class Student extends Person{
         return this.subjects;
     }
 
+    @Override
+    public String toString(){
+        StringBuilder a = new StringBuilder();
+        a.append("\n" + this.getName() + ": " + "\n");
+        a.append("Gender = " + this.getGender().name() + "\n");
+        a.append("ID = " + this.getID() + "\n");
+        a.append("Class = " + this.getClas() + "\n");
+        for (Subjects ss : this.getSubjects()) {
+            a.append(ss.name() + ", ");
+        }
+        a.append("\n");
 
+        return a.toString();
+    }
 }
