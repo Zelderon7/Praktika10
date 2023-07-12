@@ -1,8 +1,9 @@
-package calculatorTask;
 
+package calculatorTask;
 import java.util.*;
 
 public class Calculator{
+
     public static Map<Character, Operation> operations = new HashMap<>();
     static List<Character> allowed;
     public static double calculate(String inp){
