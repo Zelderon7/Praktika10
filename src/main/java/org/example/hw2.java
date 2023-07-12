@@ -5,13 +5,13 @@ import java.util.Arrays;
 public class hw2 {
 
     public static void main(String[] args) {
-        int[] arr = {2,3,4};
-        System.out.println(sumArr(arr));
+
+        System.out.println(sumArr(new int[]{2, 34, 5, 67, 78, 89, 8, 3}));
     }
 
-    public static int sumArr(int[] arr){
+    static int sumArr(int[] arr) {
         return Arrays.stream(arr).sum();
     }
-
-
 }
+
+
