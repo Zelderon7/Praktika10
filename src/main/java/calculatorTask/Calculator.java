@@ -5,7 +5,7 @@ import java.util.*;
 public class Calculator{
     public static HashMap<Character, Operation> operations = new HashMap<>();
     static List<Character> allowed;
-    private static double calculate(String inp){
+    public static double calculate(String inp){
 
         //region Initialising allowed characters and operations
 
