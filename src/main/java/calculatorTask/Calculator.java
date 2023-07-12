@@ -3,13 +3,13 @@ package calculatorTask;
 import java.util.*;
 
 public class Calculator{
-    public static HashMap<Character, Operation> operations = new HashMap<>();
+    public static Map<Character, Operation> operations = new HashMap<>();
     static List<Character> allowed;
     public static double calculate(String inp){
 
         //region Initialising allowed characters and operations
 
-        allowed = new ArrayList<>(Arrays.asList('0', '1', '2', '3', '4', '5', '6', '6', '8', '9',
+        allowed = new ArrayList<>(Arrays.asList('0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
                 '+', '-', '*', '/', '(', ')', '.', '%', '^', ' ', ':', ','));
         operations.put('+', new Operation('+', 0));
         operations.put('-', new Operation('-', 0));
@@ -74,8 +74,8 @@ public class Calculator{
             if (a.indexOf("divided by") != -1)
                 a.replace(a.indexOf("divided by"), a.indexOf("divided by") + 10, "/");
 
-            if (a.indexOf("reminder") != -1)
-                a.replace(a.indexOf("reminder"), a.indexOf("reminder") + 8, "%");
+            if (a.indexOf("remainder") != -1)
+                a.replace(a.indexOf("remainder"), a.indexOf("remainder") + 9, "%");
         }
 
     }
