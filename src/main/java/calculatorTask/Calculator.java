@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Calculator {
 
-    public static Map<Character, Operation> operations = new HashMap<>();
+    static Map<Character, Operation> operations = new HashMap<>();
     static List<Character> allowed;
 
     public static double calculate(String inp) {
@@ -23,14 +23,11 @@ public class Calculator {
 
         //endregion
 
-        StringBuilder b = new StringBuilder(inp);
+        StringBuilder b = new StringBuilder(inp.replaceAll(" ", ""));
 
         handleWordInput(b);
 
         for (int i = b.length() - 1; i >= 0; i--) {
-            if (b.charAt(i) == ' ')
-                b.replace(i, i + 1, "");
-
             if (b.charAt(i) == ',')
                 b.replace(i, i + 1, ".");
 
@@ -58,12 +55,13 @@ public class Calculator {
     }
 
     private static String solveToSingleEquation(String inp) {
-        StringBuilder a = new StringBuilder(inp.trim());
+        StringBuilder a = new StringBuilder(inp);
 
-        if (inp.contains("("))
+        while (a.indexOf("(") != -1) {
             a.replace(a.indexOf("("),
                     a.indexOf(")") + 1,
                     String.valueOf(solveToSingleEquation(a.substring(a.indexOf("(") + 1, a.indexOf(")")))));
+        }
         return prioritySplitSolve(a);
     }
 
