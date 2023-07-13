@@ -25,6 +25,8 @@ public class Calculator {
 
         StringBuilder b = new StringBuilder(inp);
 
+        handleWordInput(b);
+
         for (int i = b.length() - 1; i >= 0; i--) {
             if (b.charAt(i) == ' ')
                 b.replace(i, i + 1, "");
@@ -57,11 +59,11 @@ public class Calculator {
 
     private static String solveToSingleEquation(String inp) {
         StringBuilder a = new StringBuilder(inp.trim());
-        handleWordInput(a);
 
         if (inp.contains("("))
-            a.replace(a.indexOf("("), a.indexOf(")") + 1, String.valueOf(solveToSingleEquation(a.substring(a.indexOf("(") + 1, a.indexOf(")")))));
-
+            a.replace(a.indexOf("("),
+                    a.indexOf(")") + 1,
+                    String.valueOf(solveToSingleEquation(a.substring(a.indexOf("(") + 1, a.indexOf(")")))));
         return prioritySplitSolve(a);
     }
 
@@ -88,34 +90,34 @@ public class Calculator {
             if (a.indexOf("remainder") != -1)
                 a.replace(a.indexOf("remainder"), a.indexOf("remainder") + 9, "%");
         }
-
     }
 
     private static String prioritySplitSolve(StringBuilder inp) {
 
         int endAt = inp.length(), startAt = 0, targetIndex = -1;
-
         targetIndex = findHighestPriorityOperation(inp.toString());
 
         if (targetIndex == -1)
             return inp.toString();
 
         if (targetIndex == 0) {
-            if(inp.charAt(targetIndex) == '-')
+            if (inp.charAt(targetIndex) == '-')
                 return "[" + inp.replace(targetIndex, targetIndex + 1, "") + "]";
             else
                 return inp.replace(targetIndex, targetIndex + 1, "").toString();
         }
 
         for (int i = targetIndex - 1; i >= 0; i--) {
-            if (!(getIntFromChar(inp.charAt(i)) != -1 || inp.charAt(i) == '.' || inp.charAt(i) == '[' || inp.charAt(i) == ']')) {
+            if (!(getIntFromChar(inp.charAt(i)) != -1 || inp.charAt(i) == '.'
+                    || inp.charAt(i) == '[' || inp.charAt(i) == ']')) {
                 startAt = i + 1;
                 break;
             }
         }
 
         for (int i = targetIndex + 1; i < inp.length(); i++) {
-            if (!(getIntFromChar(inp.charAt(i)) != -1 || inp.charAt(i) == '.' || inp.charAt(i) == '[' || inp.charAt(i) == ']')) {
+            if (!(getIntFromChar(inp.charAt(i)) != -1 || inp.charAt(i) == '.'
+                    || inp.charAt(i) == '[' || inp.charAt(i) == ']')) {
                 endAt = i;
                 break;
             }
@@ -242,9 +244,9 @@ public class Calculator {
         return false;
     }
 
-    private static int indexOfNextOperator(int start, StringBuilder sb){
-        for (int i = start; i < sb.length(); i++){
-            if(operations.containsKey(sb.charAt(i)))
+    private static int indexOfNextOperator(int start, StringBuilder sb) {
+        for (int i = start; i < sb.length(); i++) {
+            if (operations.containsKey(sb.charAt(i)))
                 return i;
         }
         return sb.length();
