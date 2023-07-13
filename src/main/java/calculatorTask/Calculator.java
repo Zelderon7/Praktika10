@@ -1,12 +1,14 @@
 
 package calculatorTask;
+
 import java.util.*;
 
-public class Calculator{
+public class Calculator {
 
     public static Map<Character, Operation> operations = new HashMap<>();
     static List<Character> allowed;
-    public static double calculate(String inp){
+
+    public static double calculate(String inp) {
 
         //region Initialising allowed characters and operations
 
@@ -21,9 +23,34 @@ public class Calculator{
 
         //endregion
 
-        String a = solveToSingleEquation(inp);
+        StringBuilder b = new StringBuilder(inp);
 
-        if(a.charAt(0) == '[')
+        for (int i = b.length() - 1; i >= 0; i--) {
+            if (b.charAt(i) == ' ')
+                b.replace(i, i + 1, "");
+
+            if (b.charAt(i) == ',')
+                b.replace(i, i + 1, ".");
+
+            if (b.charAt(i) == ':')
+                b.replace(i, i + 1, "/");
+
+            if (!allowed.contains(b.charAt(i)))
+                throw new RuntimeException("Invalid character: {" + b.charAt(i) + "}");
+        }
+        for (int i = 1; i < b.length(); i++) {
+            if ((b.charAt(i) == '+' || b.charAt(i) == '-') && operations.containsKey(b.charAt(i - 1))) {
+                b.replace(i, indexOfNextOperator(i + 1, b), "(" + b.substring(i, indexOfNextOperator(i + 1, b)) + ")");
+                break;
+            }
+        }
+
+        if (!checkBrackets(b.toString()))
+            throw new RuntimeException("Invalid brackets placement");
+
+        String a = solveToSingleEquation(b.toString());
+
+        if (a.charAt(0) == '[')
             return Double.parseDouble("-" + a.substring(1, a.length() - 1));
         return Double.parseDouble(a);
     }
@@ -31,23 +58,6 @@ public class Calculator{
     private static String solveToSingleEquation(String inp) {
         StringBuilder a = new StringBuilder(inp.trim());
         handleWordInput(a);
-
-        for (int i = 1; i < a.length(); i++) {
-            if (a.charAt(i) == ' ')
-                a.replace(i, i + 1, "");
-
-            if (a.charAt(i) == ',')
-                a.replace(i, i + 1, ".");
-
-            if (a.charAt(i) == ':')
-                a.replace(i, i + 1, "/");
-
-            if (!allowed.contains(a.charAt(i)))
-                throw new RuntimeException("Invalid character: {" + a.charAt(i) + "}");
-        }
-
-        if (!checkBrackets(a.toString()))
-            throw new RuntimeException("Invalid brackets placement");
 
         if (inp.contains("("))
             a.replace(a.indexOf("("), a.indexOf(")") + 1, String.valueOf(solveToSingleEquation(a.substring(a.indexOf("(") + 1, a.indexOf(")")))));
@@ -90,8 +100,11 @@ public class Calculator{
         if (targetIndex == -1)
             return inp.toString();
 
-        if(targetIndex == 0 || targetIndex == inp.length() - 1){
-            return "[" + inp.replace(targetIndex, targetIndex + 1, "") + "]";
+        if (targetIndex == 0) {
+            if(inp.charAt(targetIndex) == '-')
+                return "[" + inp.replace(targetIndex, targetIndex + 1, "") + "]";
+            else
+                return inp.replace(targetIndex, targetIndex + 1, "").toString();
         }
 
         for (int i = targetIndex - 1; i >= 0; i--) {
@@ -117,7 +130,7 @@ public class Calculator{
         int targetPriority = -1;
         int targetIndex = -1;
         for (int i = 0; i < inp.length(); i++) {
-            if (getIntFromChar(inp.charAt(i)) != -1 || inp.charAt(i) == '.'  || inp.charAt(i) == '[' || inp.charAt(i) == ']') {
+            if (getIntFromChar(inp.charAt(i)) != -1 || inp.charAt(i) == '.' || inp.charAt(i) == '[' || inp.charAt(i) == ']') {
                 continue;
             } else if (operations.get(inp.charAt(i)).priority > targetPriority) {
                 targetPriority = operations.get(inp.charAt(i)).priority;
@@ -155,10 +168,10 @@ public class Calculator{
             operation = "\\^";
 
         String[] splited = inp.split(operation);
-        if(splited[0].charAt(0) == '[')
+        if (splited[0].charAt(0) == '[')
             splited[0] = "-" + splited[0].substring(1, splited[0].length() - 1);
 
-        if(splited[1].charAt(0) == '[')
+        if (splited[1].charAt(0) == '[')
             splited[1] = "-" + splited[1].substring(1, splited[1].length() - 1);
 
         a = Double.parseDouble(splited[0]);
@@ -166,45 +179,45 @@ public class Calculator{
 
         switch (operation) {
             case "\\+":
-                if(a + b < 0)
+                if (a + b < 0)
                     return "[" + Math.abs(a + b) + "]";
                 return String.valueOf(a + b);
 
             case "-":
-                if(a - b < 0)
+                if (a - b < 0)
                     return "[" + Math.abs(a - b) + "]";
                 return String.valueOf(a - b);
 
             case "\\*":
-                if(a * b < 0)
+                if (a * b < 0)
                     return "[" + Math.abs(a * b) + "]";
                 return String.valueOf(a * b);
 
             case "/":
-                if(b == 0)
+                if (b == 0)
                     throw new RuntimeException("Ti si idiot!");
-                if(a / b < 0)
+                if (a / b < 0)
                     return "[" + Math.abs(a / b) + "]";
                 return String.valueOf(a / b);
 
             case "%":
-                if(b == 0)
+                if (b == 0)
                     throw new RuntimeException("Ti si idiot!");
-                if(a % b < 0)
+                if (a % b < 0)
                     return "[" + Math.abs(a % b) + "]";
                 return String.valueOf(a % b);
 
             case "\\^":
-                if(b == 0)
+                if (b == 0)
                     return 1 + "";
                 double ans = a;
                 for (int i = 0; i < (int) b - 1; i++)
                     ans *= a;
 
-                if(b < 0)
+                if (b < 0)
                     ans = 1 / ans;
 
-                if(ans < 0)
+                if (ans < 0)
                     return "[" + Math.abs(ans) + "]";
                 return String.valueOf(ans);
 
@@ -227,5 +240,13 @@ public class Calculator{
             return true;
 
         return false;
+    }
+
+    private static int indexOfNextOperator(int start, StringBuilder sb){
+        for (int i = start; i < sb.length(); i++){
+            if(operations.containsKey(sb.charAt(i)))
+                return i;
+        }
+        return sb.length();
     }
 }
