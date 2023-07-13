@@ -23,16 +23,20 @@ public class Teacher extends Person {
         return this.school;
     }
 
-    public void setSchool(School school) {
+    public Teacher setSchool(School school) {
+        this.school.resignTeacher(this);
         this.school = school;
+        school.resignTeacher(this);
+        return this;
     }
 
     public List<Subjects> getSubjects() {
         return subjects;
     }
 
-    public void addSubjects(List<Subjects> subjects) {
+    public Teacher addSubjects(List<Subjects> subjects) {
         this.subjects.addAll(subjects);
+        return this;
     }
 
     public int removeSubjects(List<Subjects> subjects) {
@@ -51,8 +55,9 @@ public class Teacher extends Person {
         return this.salary;
     }
 
-    public void setSalary(float salary) {
+    public Teacher setSalary(float salary) {
         this.salary = salary;
+        return this;
     }
 
     public void signNewGrade(Grade grade) {

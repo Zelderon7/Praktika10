@@ -45,16 +45,18 @@ public abstract class Person {
         return gender;
     }
 
-    public void setGender(Gender gender) {
+    public Person setGender(Gender gender) {
         this.gender = gender;
+        return this;
     }
 
     public String getID() {
         return ID;
     }
 
-    public void setID(String ID) {
+    public Person setID(String ID) {
         this.ID = ID;
+        return this;
     }
 
 }

@@ -21,6 +21,10 @@ public class School {
         return this.name;
     }
 
+    public boolean resignTeacher(Teacher teacher){
+        return teachers.remove(teacher);
+    }
+
     protected void registerStudent(Student a) {
         this.students.add(a);
     }
