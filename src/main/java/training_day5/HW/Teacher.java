@@ -80,9 +80,8 @@ public class Teacher extends Person {
         a.append("Salary = " + this.getSalary() + "\n");
         a.append("Subjects: ");
         for (Subjects s : this.getSubjects()) {
-            System.out.print(s.name() + ", ");
+            a.append(s.name() + "\n");
         }
-        a.append("\n");
         return a.toString();
     }
 }
