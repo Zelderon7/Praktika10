@@ -25,6 +25,8 @@ public class Calculator {
 
         StringBuilder b = new StringBuilder(inp.replaceAll(" ", ""));
 
+        //region formatting input
+
         handleWordInput(b);
 
         for (int i = b.length() - 1; i >= 0; i--) {
@@ -37,12 +39,19 @@ public class Calculator {
             if (!allowed.contains(b.charAt(i)))
                 throw new RuntimeException("Invalid character: {" + b.charAt(i) + "}");
         }
-        for (int i = 1; i < b.length(); i++) {
+
+        if(b.charAt(0) == '-' || b.charAt(0) == '+'){
+            b.replace(0, indexOfNextOperator(1, b), "(" + b.substring(0, indexOfNextOperator(1, b)) + ")");
+        }
+
+        for (int i = 2; i < b.length(); i++) {
             if ((b.charAt(i) == '+' || b.charAt(i) == '-') && operations.containsKey(b.charAt(i - 1))) {
                 b.replace(i, indexOfNextOperator(i + 1, b), "(" + b.substring(i, indexOfNextOperator(i + 1, b)) + ")");
                 break;
             }
         }
+
+        //endregion
 
         if (!checkBrackets(b.toString()))
             throw new RuntimeException("Invalid brackets placement");
@@ -58,17 +67,33 @@ public class Calculator {
         StringBuilder a = new StringBuilder(inp);
 
         while (a.indexOf("(") != -1) {
-            a.replace(a.indexOf("("),
-                    a.indexOf(")") + 1,
-                    String.valueOf(solveToSingleEquation(a.substring(a.indexOf("(") + 1, a.indexOf(")")))));
+            int startI = a.indexOf("(");
+            int endI = startI + getClosingIndex(a.substring(startI));
+            a.replace(startI,
+                    endI + 1,
+                    String.valueOf(solveToSingleEquation(a.substring(startI + 1, endI))));
         }
         return prioritySplitSolve(a);
+    }
+
+    private static int getClosingIndex(String inp) {
+        int bCount = 0;
+        for (int i = 0; i < inp.length(); i++) {
+            if (inp.charAt(i) == '(')
+                bCount++;
+            else if (inp.charAt(i) == ')') {
+                bCount--;
+                if (bCount == 0)
+                    return i;
+            }
+        }
+        return 8930374;
     }
 
     private static void handleWordInput(StringBuilder a) {
 
         while (a.indexOf("plus") != -1 || a.indexOf("minus") != -1 || a.indexOf("times") != -1 ||
-                a.indexOf("on the power of") != -1 || a.indexOf("divided by") != -1 || a.indexOf("reminder") != -1) {
+                a.indexOf("onthepowerof") != -1 || a.indexOf("dividedby") != -1 || a.indexOf("reminder") != -1) {
 
             if (a.indexOf("plus") != -1)
                 a.replace(a.indexOf("plus"), a.indexOf("plus") + 4, "+");
@@ -79,11 +104,11 @@ public class Calculator {
             if (a.indexOf("times") != -1)
                 a.replace(a.indexOf("times"), a.indexOf("times") + 5, "*");
 
-            if (a.indexOf("on the power of") != -1)
-                a.replace(a.indexOf("on the power of"), a.indexOf("on the power of") + 15, "^");
+            if (a.indexOf("onthepowerof") != -1)
+                a.replace(a.indexOf("onthepowerof"), a.indexOf("onthepowerof") + 12, "^");
 
-            if (a.indexOf("divided by") != -1)
-                a.replace(a.indexOf("divided by"), a.indexOf("divided by") + 10, "/");
+            if (a.indexOf("dividedby") != -1)
+                a.replace(a.indexOf("dividedby"), a.indexOf("dividedby") + 9, "/");
 
             if (a.indexOf("remainder") != -1)
                 a.replace(a.indexOf("remainder"), a.indexOf("remainder") + 9, "%");
