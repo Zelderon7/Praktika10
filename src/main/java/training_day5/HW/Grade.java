@@ -15,7 +15,7 @@ public class Grade{
         this.value = value;
         this.teacher = teacher;
         teacher.signNewGrade(this);
-        if(student.getGrade(subject) == 0){
+        if(student.getGrade(subject) == -1){
             student.addNewGrade(subject, this);
         }
         else{

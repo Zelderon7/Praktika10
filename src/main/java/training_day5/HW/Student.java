@@ -67,7 +67,9 @@ public class Student extends Person{
     }
 
     public int getGrade(Subjects subject){
-        return this.gradesForSubject.get(subject).value;
+        if(gradesForSubject.containsKey(subject))
+            return this.gradesForSubject.get(subject).value;
+        else return -1;
     }
 
     public float getAverageGrade(){

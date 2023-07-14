@@ -38,19 +38,27 @@ public class Test {
         new Grade(5, matBel, Ivan, Subjects.Bulgarian);
         System.out.println(Ivan.getGrade(Subjects.Bulgarian));
 
+        in.nextLine();
+
         //Writing a second Grade
         System.out.println(Ivan.getGrade(Subjects.Bulgarian));
         new Grade(3, bel, Ivan, Subjects.Bulgarian);
         System.out.println(Ivan.getGrade(Subjects.Bulgarian));
+
+        in.nextLine();
 
         //Trying to add a grade to a wrong subject
         System.out.println(Pesho.getGrade(Subjects.Bulgarian));
         new Grade(2, matBel, Pesho, Subjects.Bulgarian);
         System.out.println(Pesho.getGrade(Subjects.Bulgarian));
 
+        in.nextLine();
+
         System.out.println(Pesho.getGrade(Subjects.Physics));
         new Grade(2, matBel, Pesho, Subjects.Physics);
         System.out.println(Pesho.getGrade(Subjects.Physics));
+
+        in.nextLine();
 
         //Trying to write a grade from another school
         School school2 = new School("Softuni");
