@@ -1,12 +1,11 @@
 package training_day5.HW;
 
-import javax.security.auth.Subject;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Teacher extends Person {
 
-    List<Subjects> subjects = new ArrayList<>();
+    private List<Subjects> subjects = new ArrayList<>();
     private List<Grade> grades = new ArrayList<>();
     private School school;
     private float salary;
@@ -23,10 +22,10 @@ public class Teacher extends Person {
         return this.school;
     }
 
-    public Teacher setSchool(School school) {
+    public Teacher changeSchool(School school) {
         this.school.resignTeacher(this);
         this.school = school;
-        school.resignTeacher(this);
+        school.registerTeacher(this);
         return this;
     }
 

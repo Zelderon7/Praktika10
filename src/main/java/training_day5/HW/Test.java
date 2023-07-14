@@ -9,15 +9,15 @@ public class Test {
         School school1 = new School("PGEE");
 
         //initialising Teachers
-        Teacher mat = new Teacher("Ime", Collections.singletonList(Subjects.Math), 983.96f, school1);
+        Teacher mat = new Teacher("mat", Collections.singletonList(Subjects.Math), 4983.96f, school1);
         mat.setGender(Gender.Female);
-        Teacher bel = new Teacher("bme", Collections.singletonList(Subjects.Bulgarian), 983.96f, school1);
+        Teacher bel = new Teacher("bel", Collections.singletonList(Subjects.Bulgarian), 5983.96f, school1);
         mat.setGender(Gender.Male);
-        Teacher matBel = new Teacher("Ime2", Arrays.asList(Subjects.Math, Subjects.Bulgarian), 1283.96f, school1);
+        Teacher matBel = new Teacher("MatBel", Arrays.asList(Subjects.Math, Subjects.Bulgarian), 3283.96f, school1);
         matBel.setGender(Gender.Dinosaur);
-        Teacher programing = new Teacher("Ime0110", Collections.singletonList(Subjects.Programming), 1683.96f, school1);
+        Teacher programing = new Teacher("GPT", Collections.singletonList(Subjects.Programming), 7683.96f, school1);
         programing.setGender(Gender.AI);
-        Teacher phis = new Teacher("ImeOm", Collections.singletonList(Subjects.Physics), 1000f, school1);
+        Teacher phis = new Teacher("Galileo", Collections.singletonList(Subjects.Physics), 4000f, school1);
         phis.setGender(Gender.Monkey);
 
         //initialising Students
@@ -30,6 +30,9 @@ public class Test {
         Koko.setGender(Gender.Monkey);
 
         school1.printTeachersAndStudents();
+
+        System.out.println("\n\n\n\n\n\n\n");
+        System.out.println("Average salary: " + school1.getAverageSalary());
 
         in.nextLine();
 
@@ -72,7 +75,7 @@ public class Test {
 
         in.nextLine();
 
-        mat.setSchool(school2);
+        mat.changeSchool(school2);
         System.out.println("Softuni: ");
         school2.printTeachersAndStudents();
 

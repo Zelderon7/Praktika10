@@ -74,8 +74,7 @@ public class Student extends Person{
 
     public float getAverageGrade(){
         float ans = 0;
-        for (Subjects s:
-            subjects) {
+        for (Subjects s: subjects) {
             ans += gradesForSubject.get(s).value;
         }
         return ans / subjects.size();
