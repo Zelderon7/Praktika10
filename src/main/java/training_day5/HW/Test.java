@@ -62,13 +62,23 @@ public class Test {
 
         //Trying to write a grade from another school
         School school2 = new School("Softuni");
+        System.out.println("Softuni: ");
         school2.printTeachersAndStudents();
+
+        in.nextLine();
+
+        System.out.println("PGEE: ");
         school1.printTeachersAndStudents();
 
         in.nextLine();
 
         mat.setSchool(school2);
+        System.out.println("Softuni: ");
         school2.printTeachersAndStudents();
+
+        in.nextLine();
+
+        System.out.println("PGEE: ");
         school1.printTeachersAndStudents();
 
         in.nextLine();
@@ -76,5 +86,10 @@ public class Test {
         System.out.println(Pesho.getGrade(Subjects.Math));
         new Grade(2, mat, Pesho, Subjects.Math);
         System.out.println(Pesho.getGrade(Subjects.Math));
+
+        in.nextLine();
+
+        //Student with the highest Grades
+        System.out.println(school1.getTopperIn(Subjects.Bulgarian));
     }
 }
