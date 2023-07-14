@@ -33,6 +33,7 @@ public abstract class Person {
                 ((Math.abs(random.nextInt() % 9) + 1) * 1000 + Math.abs(random.nextInt() % 1000)) + "." +
                 ((Math.abs(random.nextInt() % 9) + 1) * 1000 + Math.abs(random.nextInt() % 1000));
     }
+
     public String getName() {
         return name;
     }
